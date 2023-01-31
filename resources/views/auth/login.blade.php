@@ -1,47 +1,89 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+@extends('layouts.auth')
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+@section('title')
+   Log in
+@stop
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+@section('css')
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+@endsection
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+@section('content_auth')
+          <!--=================================
+ login-->
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
-                <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
-            </label>
-        </div>
+ <section class="height-100vh d-flex align-items-center page-section-ptb login"
+ style="background-image: url(assets/images/login-bg.jpg);">
+ <div class="container">
+     <div class="row justify-content-center no-gutters vertical-align">
+         <div class="col-lg-4 col-md-6 login-fancy-bg bg"
+             style="background-image: url(images/login-inner-bg.jpg);">
+             <div class="login-fancy">
+                 <h2 class="text-white mb-20">Hello world!</h2>
+                 <p class="mb-20 text-white">Create tailor-cut websites with the exclusive multi-purpose
+                     responsive template along with powerful features.</p>
+                 <ul class="list-unstyled  pos-bot pb-30">
+                     <li class="list-inline-item"><a class="text-white" href="#"> Terms of Use</a> </li>
+                     <li class="list-inline-item"><a class="text-white" href="#"> Privacy Policy</a></li>
+                 </ul>
+             </div>
+         </div>
+         <div class="col-lg-4 col-md-6 bg-white">
+             <div class="login-fancy pb-40 clearfix">
+                 <h3 class="mb-30">Sign In To Admin</h3>
 
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
+                 <form method="POST" action="{{ route('login') }}">
+                     @csrf
 
-            <x-primary-button class="ml-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+                     <div class="section-field mb-20">
+                         <label class="mb-10" for="name">Email* </label>
+                         <input id="email" type="email"
+                             class="form-control @error('email') is-invalid @enderror" name="email"
+                             value="{{ old('email') }}" required autocomplete="email" autofocus>
+                         @error('email')
+                             <span class="invalid-feedback" role="alert">
+                                 <strong>{{ $message }}</strong>
+                             </span>
+                         @enderror
+
+                     </div>
+
+                     <div class="section-field mb-20">
+                         <label class="mb-10" for="Password">Password* </label>
+                         <input id="password" type="password"
+                             class="form-control @error('password') is-invalid @enderror" name="password"
+                             required autocomplete="current-password">
+
+                         @error('password')
+                             <span class="invalid-feedback" role="alert">
+                                 <strong>{{ $message }}</strong>
+                             </span>
+                         @enderror
+
+                     </div>
+                     <div class="section-field">
+                        <div class="remember-checkbox mb-30">
+                           <input type="checkbox" class="form-control" name="two" id="two" />
+                           <label for="two"> Remember me</label>
+                           <a href="password-recovery.html" class="float-right">Forgot Password?</a>
+                          </div>
+                        </div>
+                       <button class="button"><span>Log in</span><i class="fa fa-check"></i></button>
+                       <p class="mt-20 mb-0">Don't have an account? <a href="{{ route('register') }}"> Create one here</a></p>
+                     </div>
+                 </form>
+             </div>
+         </div>
+     </div>
+ </div>
+</section>
+
+<!--=================================
+login-->
+@endsection
+
+
+@section('scripts')
+
+@endsection
